@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { Trophy, Twitter, Instagram, Linkedin } from 'lucide-react'
+import { Twitter, Instagram, Linkedin } from 'lucide-react'
+import { Logo } from '@/components/ui/Logo'
 
 export default function Footer() {
   return (
@@ -8,11 +9,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-amber-500 rounded-lg flex items-center justify-center">
-                <Trophy className="w-4 h-4 text-[#0F1628]" />
-              </div>
-              <span className="text-white font-bold text-xl">Game<span className="text-amber-500">er</span></span>
+            <div className="flex items-center gap-3 mb-6">
+              <Logo className="w-9 h-9" />
+              <span className="text-white font-bold text-2xl tracking-tight">
+                Game<span className="text-amber-500">er</span>
+              </span>
             </div>
             <p className="text-sm leading-relaxed max-w-xs">
               Where every round of golf you play funds causes that matter. Subscribe, score, and help change lives.

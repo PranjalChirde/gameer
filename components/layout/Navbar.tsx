@@ -2,8 +2,9 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { Menu, X, Trophy, LogOut, User, LayoutDashboard, Settings } from 'lucide-react'
+import { Menu, X, LogOut, User, LayoutDashboard, Settings } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+import { Logo } from '@/components/ui/Logo'
 import { useRouter } from 'next/navigation'
 
 interface NavbarProps {
@@ -26,10 +27,8 @@ export default function Navbar({ user }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 bg-amber-500 rounded-lg flex items-center justify-center">
-              <Trophy className="w-4 h-4 text-navy" />
-            </div>
+          <Link href="/" className="flex items-center gap-3 group">
+            <Logo className="w-9 h-9 transition-transform group-hover:scale-105 duration-300" />
             <span className="text-white font-bold text-xl tracking-tight">
               Game<span className="text-amber-500">er</span>
             </span>
