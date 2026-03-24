@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gameer — Golf Charity Subscription Platform
 
-## Getting Started
+## Environment Variables
 
-First, run the development server:
+Copy this file to `.env.local` and fill in your values.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```env
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+
+# Stripe
+NEXT_PUBLIC_RAZORPAY_KEY_ID=rzp_test_...
+RAZORPAY_KEY_SECRET=...
+RAZORPAY_WEBHOOK_SECRET=...
+RAZORPAY_MONTHLY_PLAN_ID=plan_...
+RAZORPAY_YEARLY_PLAN_ID=plan_...
+
+# Email — Resend
+RESEND_API_KEY=re_...
+
+# App URL (no trailing slash)
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Quick Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1. Supabase
+1. Create a new project at [supabase.com](https://supabase.com)
+2. Go to **SQL Editor** → run [`supabase/migrations/001_initial_schema.sql`](./supabase/migrations/001_initial_schema.sql)
+3. Run [`supabase/migrations/002_seed_data.sql`](./supabase/migrations/002_seed_data.sql) to seed charities
+4. Go to **Storage** → create a bucket named `proofs` (public)
+5. Go to **Authentication → Providers** → make sure **Email** is enabled
+6. Copy your project URL and anon key from **Project Settings → API**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. Razorpay & Payment Bypass (Dev Mode)
+1. Since you don't have a Razorpay account ready, set the following variable in your `.env.local`:
+   `NEXT_PUBLIC_ENABLE_PAYMENT_BYPASS=true`
+2. This will enable a "Skip Payment" Dev Mode button on the Pricing page.
+3. If you want to configure Razorpay later: Create a Test Mode account at [razorpay.com](https://razorpay.com), create subscription plans, copy the API Keys and Plan IDs, and configure webhooks for `subscription.charged` and `subscription.cancelled`.
 
-## Learn More
+### 3. Resend
+1. Sign up at [resend.com](https://resend.com) and create an API key
+2. Verify your sending domain (or use `@resend.dev` for testing)
 
-To learn more about Next.js, take a look at the following resources:
+### 4. Development
+```bash
+npm install
+cp .env.local.example .env.local
+# fill in your values
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 5. Create Admin User
+After signup, run this in Supabase SQL Editor:
+```sql
+UPDATE public.users SET is_admin = true WHERE email = 'your@email.com';
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Test Credentials (after setup)
+- **Subscriber**: Sign up via /signup with any email
+- **Admin**: Set `is_admin = true` via SQL as above
 
-## Deploy on Vercel
+## Stripe Test Cards
+- **Success**: `4242 4242 4242 4242`
+- **Decline**: `4000 0000 0000 0002`
+- Use any future expiry and any 3-digit CVC
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment (Vercel)
+1. Push this repo to GitHub
+2. Import the repo in a **new Vercel account**
+3. Set all environment variables from `.env.local`
+4. Change `NEXT_PUBLIC_APP_URL` to your Vercel URL
+5. Update your Stripe webhook endpoint to the Vercel URL

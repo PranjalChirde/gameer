@@ -1,0 +1,29 @@
+
+> gameer@0.1.0 build
+> next build
+
+▲ Next.js 16.2.1 (Turbopack)
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+✓ Compiled successfully in 5.4s
+  Running TypeScript ...
+  Finished TypeScript in 8.1s ...
+  Collecting page data using 11 workers ...
+Error: Neither apiKey nor config.authenticator provided
+    at s._setAuthenticator (C:\Users\pranjal chirde\code files\gameer\.next\server\chunks\[root-of-the-server]__0lak0ao._.js:1:88009)
+    at new s (C:\Users\pranjal chirde\code files\gameer\.next\server\chunks\[root-of-the-server]__0lak0ao._.js:1:82610)
+    at module evaluation (C:\Users\pranjal chirde\code files\gameer\.next\server\chunks\[root-of-the-server]__0lak0ao._.js:1:81365)
+    at instantiateModule (C:\Users\pranjal chirde\code files\gameer\.next\server\chunks\[turbopack]_runtime.js:853:9)
+    at getOrInstantiateModuleFromParent (C:\Users\pranjal chirde\code files\gameer\.next\server\chunks\[turbopack]_runtime.js:877:12)
+    at Context.esmImport [as i] (C:\Users\pranjal chirde\code files\gameer\.next\server\chunks\[turbopack]_runtime.js:281:20)
+    at module evaluation (C:\Users\pranjal chirde\code files\gameer\.next\server\chunks\[root-of-the-server]__0ezudqe._.js:1:1575)
+    at instantiateModule (C:\Users\pranjal chirde\code files\gameer\.next\server\chunks\[turbopack]_runtime.js:853:9)
+    at instantiateRuntimeModule (C:\Users\pranjal chirde\code files\gameer\.next\server\chunks\[turbopack]_runtime.js:882:12)
+    at getOrInstantiateRuntimeModule (C:\Users\pranjal chirde\code files\gameer\.next\server\chunks\[turbopack]_runtime.js:895:12)
+
+> Build error occurred
+Error: Failed to collect page data for /api/admin/draws
+    at ignore-listed frames {
+  type: 'Error'
+}
